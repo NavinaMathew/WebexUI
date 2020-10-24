@@ -10,6 +10,7 @@ import { DateTimePickerModule} from '@syncfusion/ej2-angular-calendars';
 import { SwitchModule } from '@syncfusion/ej2-angular-buttons';
 import { enableRipple } from '@syncfusion/ej2-base';
 import { TextBoxModule } from '@syncfusion/ej2-angular-inputs';
+
 enableRipple(true);
 
 @NgModule({
