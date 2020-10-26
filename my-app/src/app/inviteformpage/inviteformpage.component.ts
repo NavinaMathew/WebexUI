@@ -19,6 +19,7 @@ export class InviteformpageComponent implements OnInit {
   public fullYear: number = new Date().getFullYear();
   public minDate: Date = new Date(this.fullYear, this.month , 22, 12);
   public inviteearray: any=[];
+  public submit: boolean = false;
 
   // value: Date;
   MeetingModel = new MeetingForm('title','password', 'start date and time', 'end date and time', [], 'agenditems', 10,false,false);
@@ -36,9 +37,11 @@ export class InviteformpageComponent implements OnInit {
   new_dictionaryAgendatolist: any=[];
   
     ngOnInit() {
-    
+
       this.getInviteesRec();
-    }
+
+  
+  }
  // make true/false sections if null to be "false"
  // invitee and agenda if null to be []
 
@@ -46,12 +49,12 @@ export class InviteformpageComponent implements OnInit {
  add() {
   this.containers.push(this.containers.length);
 }
- addMeeting(meetinginfo){
-  meetinginfo.map((i) =>{
+ addMeeting(value : any){
+  value.invitees.map((i) =>{
     console.log('i am in add meeting function');
 
     //INVITEES
-    this.inviteearray = meetinginfo.invitees.split(',');
+    this.inviteearray = value.invitees.split(',');
     console.log('this.inviteearray',this.inviteearray);
     
     (this.inviteeDicttoList).map(element => {
@@ -64,8 +67,8 @@ export class InviteformpageComponent implements OnInit {
       }
 
     });
-    meetinginfo.invitees = this.new_dictionarytolist;
-    console.log('meetinginfo.invitees',meetinginfo.invitees);
+    value.invitees = this.new_dictionarytolist;
+    console.log('meetinginfo.invitees',value.invitees);
 
 
     // AGENDA
@@ -74,29 +77,29 @@ export class InviteformpageComponent implements OnInit {
       this.new_dictionaryAgendaItem['message'] = i.agendaitems;
       this.new_dictionaryAgendatolist.append(this.new_dictionaryAgendaItem);
 
-      meetinginfo.agenda = this.new_dictionaryAgendatolist;
-      console.log('meetinginfo.agenda',meetinginfo.agenda);
+      value.agenda = this.new_dictionaryAgendatolist;
+      console.log('meetinginfo.agenda',value.agenda);
 
 
       // Start End date and time
-      meetinginfo.start.replace('T', ' ').replace('.000Z', '');
-      console.log('meetinginfo.start',meetinginfo.start);
+      value.start.replace('T', ' ').replace('.000Z', '');
+      console.log('meetinginfo.start',value.start);
 
-      meetinginfo.end.replace('T', ' ').replace('.000Z', '');
-      console.log('meetinginfo.end',meetinginfo.end);
+      value.end.replace('T', ' ').replace('.000Z', '');
+      console.log('meetinginfo.end',value.end);
 
-      console.log('MEETINGINFO', meetinginfo);
+      console.log('MEETINGINFO', value);
 
 
   let params = new HttpParams()
-  .set('title', meetinginfo.title)
-  .set('password', meetinginfo.password)
-  .set('start', meetinginfo.start)
-  .set('end', meetinginfo.end)
-  .set('invitees', meetinginfo.invitees)
-  .set('meetingAgenda', meetinginfo.agenda)
-  .set('enabledAutoRecordMeeting', meetinginfo.enabledAutoRecordMeeting)
-  .set('allowAnyUserToBeCoHost', meetinginfo.allowAnyUserToBeCoHost);
+  .set('title', value.title)
+  .set('password', value.password)
+  .set('start', value.start)
+  .set('end', value.end)
+  .set('invitees', value.invitees)
+  .set('meetingAgenda', value.agenda)
+  .set('enabledAutoRecordMeeting', value.enabledAutoRecordMeeting)
+  .set('allowAnyUserToBeCoHost', value.allowAnyUserToBeCoHost);
   var url = "http://127.0.0.1:5000/addmeeting";
   this._sharedservice.addMeetingPostService(url, params).subscribe(result =>{
 
@@ -140,7 +143,7 @@ export class InviteformpageComponent implements OnInit {
   }
 
   );
-  console.log('params passed in "meetinginfo"', meetinginfo);
+  console.log('params passed in "meetinginfo"', value);
 
 });
  }
@@ -165,7 +168,8 @@ export class InviteformpageComponent implements OnInit {
   // }
 
   getInviteesRec(){
-    var url = "http://127.0.0.1:5000/namerecommendations";
+    
+      var url = "http://127.0.0.1:5000/namerecommendations";
     this._sharedservice.getInviteesRecGetService(url).subscribe(result => {
       console.log('get invitee recs', result);
       this.inviteeList = result['list'];
@@ -181,8 +185,12 @@ export class InviteformpageComponent implements OnInit {
 
     );
     console.log('inviteeDict', this.inviteeDicttoList);
-
   }
+  
 
+
+  hi(){
+    alert('HI');
+  }
 
 }

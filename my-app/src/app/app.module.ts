@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InviteformpageComponent } from './inviteformpage/inviteformpage.component';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DateTimePickerModule} from '@syncfusion/ej2-angular-calendars';
 import { SwitchModule } from '@syncfusion/ej2-angular-buttons';
 import { enableRipple } from '@syncfusion/ej2-base';
@@ -25,6 +25,7 @@ enableRipple(true);
     RichTextEditorAllModule,
     DateTimePickerModule,
     FormsModule,
+    ReactiveFormsModule,
     SwitchModule,
     TextBoxModule
   ],

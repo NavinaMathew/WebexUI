@@ -25,7 +25,7 @@
 
 <!-- </form> -->
 <div class="MeetingForm" >
-<form (submit) ="addMeeting()" name="MeetingForm" #MeetingForm="ngForm">
+<form (ngSubmit) ="addMeeting(MeetingForm.value)" name="MeetingForm" #MeetingForm="ngForm">
   <div>
     <ejs-textbox class="title" id="title" name="title" placeholder="Meeting title" [(ngModel)]="title" required maxlength="128" width="400px"></ejs-textbox>
 </div>
