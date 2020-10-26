@@ -33,17 +33,29 @@
   <ejs-textbox class="password" id="password" name="password" placeholder="Password" [(ngModel)]="password" width="400px"></ejs-textbox>
 </div>
   <div>
-    <ejs-datetimepicker placeholder='Start date and time' [min]='minDate' id="fisrtdatetime" #ejDateTimePicker [(value)]='value' width="400px"></ejs-datetimepicker>
+    <ejs-datetimepicker placeholder='Start date and time' [min]='minDate' id="start" name="start" #ejDateTimePicker [(ngModel)]="start" width="400px"></ejs-datetimepicker>
   </div>
   <div>
-    <ejs-datetimepicker placeholder='End date and time' [min]='minDate' id="seconddatetime" #ejDateTimePickers [(ngModel)]='value' width="400px"></ejs-datetimepicker>
+    <ejs-datetimepicker placeholder='End date and time' [min]='minDate' id="end" name ="end" #ejDateTimePickers [(ngModel)]="end" width="400px"></ejs-datetimepicker>
   </div>
     <div>
-      <ejs-textbox [multiline]='true' class="invitees" id="invitees" name="invitees" placeholder="Invitees" [(ngModel)]="invitees" width="400px"></ejs-textbox>
+      <ejs-textbox [multiline]='true' class="invitees" id="invitees" name="invitees" placeholder="Invitees Email example navmathe@cisco.com, aaydixit@cisco.com" [(ngModel)]="invitees" width="400px"></ejs-textbox>
   </div> 
   <div>
+  <!-- <div id="content"> -->
+    <!-- <div id="contentInside" *ngFor="let container of containers"> -->
+    <span>
+    <ejs-textbox class="agendaitems" id="agendaitems" name="agendaitems" placeholder="Agenda Items" [(ngModel)]="agendaitems" width="200px"></ejs-textbox>
+    </span>
+    <span style="margin-left: 15px">
+    <ejs-textbox class="agendatimes" id="agendatimes" name="agendatimes" placeholder="time" [(ngModel)]="agendatimes" width="50px"></ejs-textbox>
+    </span>
+  </div>
+  <!-- <button (click)="add()">Add Agenda Item </button>
+  </div> -->
+  <!-- <div>
     <ejs-textbox [multiline]='true' class="agenda" id="agenda" name="agenda" placeholder="Agenda" [(ngModel)]="agenda" width="400px"></ejs-textbox>
-</div> 
+</div>  -->
   <div> Auto record meeting
     <ejs-switch id="enabledAutoRecordMeeting" name="enabledAutoRecordMeeting" [(ngModel)]="enabledAutoRecordMeeting"></ejs-switch>
   </div>
