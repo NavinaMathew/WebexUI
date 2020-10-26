@@ -52,4 +52,11 @@
   </div>
 </form>
 </div>
-<!-- <p class="PageTitle"> Meet, Collaborate, and Communicate. Wherever, Whenever. </p> -->
+
+<p> {{MeetingForm.value | json}}</p>
+<div *ngFor="let rec of inviteeList">
+  <div>{{rec?.email}}</div>
+  <div>{{rec?.name}}</div>
+</div>
+
+<p> Meet, Collaborate, and Communicate. Wherever, Whenever. </p>

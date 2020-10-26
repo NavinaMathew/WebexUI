@@ -11,21 +11,26 @@ import { throwError, TimeoutError } from 'rxjs';
   })
 
 export class SharedService {
-constructor(private http: HttpClient,
-      
-    ) {
+constructor(private http: HttpClient) {
  }
-public postServiceFormData( serviceURL): Observable<any> {
+ public addMeetingPostService(serviceURL, params): Observable<any> {
     if(window.location.host.split(':')[0]=="localhost"){
-      
-    return this.http.post(serviceURL, {headers: new HttpHeaders().set('Content-Disposition', 'form-data')
-    .set('x-requested-by', JSON.parse(window.localStorage["session"]).session_resource.session.id.toString()) 
-      .set('otmmauthtoken',JSON.parse(sessionStorage.session).session_resource.session.message_digest.toString())});
+      console.log('IN POST SERVICE');
+      return this.http.post(serviceURL, params, {headers: new HttpHeaders().set('Content-Type', 'application/json')
+    .set('Accept', '*/*')});
       }
     else{
-    return this.http.post(serviceURL, {headers: new HttpHeaders().set('Content-Disposition', 'form-data')
-    .set('x-requested-by', JSON.parse(window.localStorage["session"]).session_resource.session.id.toString()) 
-    .set('otmmauthtoken',JSON.parse(sessionStorage.session).session_resource.session.message_digest.toString())});
+      console.log('IN POST SERVICE ELSE');
+      return this.http.post(serviceURL, params, {headers: new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Accept', '*/*')});
     }
   }
+public getInviteesRecGetService(serviceUrl): Observable<any> {
+    var getHeaders = { 
+    headers: new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('Accept', '*/*'),
+    }
+    return this.http.get(serviceUrl,getHeaders);
+}
 }
