@@ -25,7 +25,7 @@
 
 <!-- </form> -->
 <div class="MeetingForm" >
-<form name="MeetingForm" #MeetingForm="ngForm">
+<form (submit) ="addMeeting()" name="MeetingForm" #MeetingForm="ngForm">
   <div>
     <ejs-textbox class="title" id="title" name="title" placeholder="Meeting title" [(ngModel)]="title" required maxlength="128" width="400px"></ejs-textbox>
 </div>
@@ -62,6 +62,7 @@
   <div> Allow any user to be cohost
     <ejs-switch id="allowAnyUserToBeCoHost" name="allowAnyUserToBeCoHost" [(ngModel)]="allowAnyUserToBeCoHost"></ejs-switch>
   </div>
+  <button type="submit">Submit</button>
 </form>
 </div>
 
@@ -71,4 +72,4 @@
   <div>{{rec?.name}}</div>
 </div>
 
-<p> Meet, Collaborate, and Communicate. Wherever, Whenever. </p>
+<p>Meet, Collaborate, and Communicate. Wherever, Whenever. </p>

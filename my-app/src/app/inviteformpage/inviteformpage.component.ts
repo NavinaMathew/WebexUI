@@ -21,7 +21,7 @@ export class InviteformpageComponent implements OnInit {
   public inviteearray: any=[];
 
   // value: Date;
-  MeetingModel = new MeetingForm('title','password', 'start date and time', 'end date and time', [], [],false,false);
+  MeetingModel = new MeetingForm('title','password', 'start date and time', 'end date and time', [], 'agenditems', 10,false,false);
 
   constructor(
     private _sharedservice: SharedService  ) {
@@ -47,14 +47,12 @@ export class InviteformpageComponent implements OnInit {
   this.containers.push(this.containers.length);
 }
  addMeeting(meetinginfo){
-  let params = new HttpParams()
-  .set('body',JSON.stringify(meetinginfo));
-  var url = "http://127.0.0.1:5000/addmeeting";
-  this._sharedservice.addMeetingPostService(url, params).subscribe(result =>{
+  meetinginfo.map((i) =>{
+    console.log('i am in add meeting function');
 
-    // INVITEES
-    result.map((i) =>{
-    this.inviteearray = result.invitees.split(',');
+    //INVITEES
+    this.inviteearray = meetinginfo.invitees.split(',');
+    console.log('this.inviteearray',this.inviteearray);
     
     (this.inviteeDicttoList).map(element => {
       if((this.inviteearray.indexOf(element.email)) > -1 ){
@@ -66,7 +64,8 @@ export class InviteformpageComponent implements OnInit {
       }
 
     });
-    result.invitees = this.new_dictionarytolist;
+    meetinginfo.invitees = this.new_dictionarytolist;
+    console.log('meetinginfo.invitees',meetinginfo.invitees);
 
 
     // AGENDA
@@ -75,14 +74,64 @@ export class InviteformpageComponent implements OnInit {
       this.new_dictionaryAgendaItem['message'] = i.agendaitems;
       this.new_dictionaryAgendatolist.append(this.new_dictionaryAgendaItem);
 
+      meetinginfo.agenda = this.new_dictionaryAgendatolist;
+      console.log('meetinginfo.agenda',meetinginfo.agenda);
+
+
       // Start End date and time
-      result.start.replace('T', ' ').replace('.000Z', '');
-      result.end.replace('T', ' ').replace('.000Z', '');
+      meetinginfo.start.replace('T', ' ').replace('.000Z', '');
+      console.log('meetinginfo.start',meetinginfo.start);
+
+      meetinginfo.end.replace('T', ' ').replace('.000Z', '');
+      console.log('meetinginfo.end',meetinginfo.end);
+
+      console.log('MEETINGINFO', meetinginfo);
+
+
+  let params = new HttpParams()
+  .set('title', meetinginfo.title)
+  .set('password', meetinginfo.password)
+  .set('start', meetinginfo.start)
+  .set('end', meetinginfo.end)
+  .set('invitees', meetinginfo.invitees)
+  .set('meetingAgenda', meetinginfo.agenda)
+  .set('enabledAutoRecordMeeting', meetinginfo.enabledAutoRecordMeeting)
+  .set('allowAnyUserToBeCoHost', meetinginfo.allowAnyUserToBeCoHost);
+  var url = "http://127.0.0.1:5000/addmeeting";
+  this._sharedservice.addMeetingPostService(url, params).subscribe(result =>{
+
+    // INVITEES
+    // result.map((i) =>{
+    // this.inviteearray = result.invitees.split(',');
+    
+    // (this.inviteeDicttoList).map(element => {
+    //   if((this.inviteearray.indexOf(element.email)) > -1 ){
+    //     this.new_dictionary = {};
+    //     this.new_dictionary['name'] = element['name'];
+    //     this.new_dictionary['email'] = element['email'];
+    //     this.new_dictionary['coHost'] = false;
+    //     this.new_dictionarytolist.append(this.new_dictionary);
+    //   }
+
+    // });
+    // result.invitees = this.new_dictionarytolist;
+
+
+    // // AGENDA
+    //   this.new_dictionaryAgendaItem = {};
+    //   this.new_dictionaryAgendaItem['minutes'] = <number>i.agendatimes;
+    //   this.new_dictionaryAgendaItem['message'] = i.agendaitems;
+    //   this.new_dictionaryAgendatolist.append(this.new_dictionaryAgendaItem);
+
+    //   // Start End date and time
+    //   result.start.replace('T', ' ').replace('.000Z', '');
+    //   result.end.replace('T', ' ').replace('.000Z', '');
 
 
 
-      });
+    //   });
 
+    console.log('GOOD', result);
 
 
   },
@@ -91,10 +140,11 @@ export class InviteformpageComponent implements OnInit {
   }
 
   );
-  console.log('inviteeDict', this.inviteeDicttoList);
+  console.log('params passed in "meetinginfo"', meetinginfo);
 
-}
-
+});
+ }
+ 
 
   // result.map((i) =>{
   //   this.inviteearray = result.split(',');
@@ -133,6 +183,6 @@ export class InviteformpageComponent implements OnInit {
     console.log('inviteeDict', this.inviteeDicttoList);
 
   }
-  
+
 
 }
