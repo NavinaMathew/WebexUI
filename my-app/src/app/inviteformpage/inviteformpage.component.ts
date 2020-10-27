@@ -26,7 +26,6 @@ export class InviteformpageComponent implements OnInit {
 
   constructor(
     private _sharedservice: SharedService  ) {
-      // this.value = new Date("1/1/2019 1:30 PM");
   }
   invitee_list: any=[];
   inviteeList: any=[];
@@ -110,52 +109,16 @@ export class InviteformpageComponent implements OnInit {
   };
 
   console.log('addmeetingDict', addmeetingDict);
-  // .set('title', this.title)
-  // .set('password', this.password)
-  // .set('start', this.start_new)
-  // .set('end', this.end_new)
-  // .set('invitees', this.invitee_list)
-  // .set('meetingAgenda', this.new_dictionaryAgendatolist)
-  // .set('enabledAutoRecordMeeting', JSON.stringify(this.enabledAutoRecordMeeting))
-  // .set('allowAnyUserToBeCoHost', JSON.stringify(this.allowAnyUserToBeCoHost));
+
   var url = "http://127.0.0.1:5000/addmeeting";
 
   this._sharedservice.addMeetingPostService(url, JSON.stringify(addmeetingDict)).subscribe(result =>{
 
   // console.log('params', JSON.stringify(params));
-  var url = "http://127.0.0.1:5000/addmeeting";
-  // this._sharedservice.addMeetingPostService(url, params).subscribe(result =>{
-
-    // INVITEES
-    // result.map((i) =>{
-    // this.inviteearray = result.invitees.split(',');
-    
-    // (this.inviteeDicttoList).map(element => {
-    //   if((this.inviteearray.indexOf(element.email)) > -1 ){
-    //     this.new_dictionary = {};
-    //     this.new_dictionary['name'] = element['name'];
-    //     this.new_dictionary['email'] = element['email'];
-    //     this.new_dictionary['coHost'] = false;
-    //     this.new_dictionarytolist.append(this.new_dictionary);
-    //   }
-
-    // });
-    // result.invitees = this.new_dictionarytolist;
-
-
-    // // AGENDA
-    //   this.new_dictionaryAgendaItem = {};
-    //   this.new_dictionaryAgendaItem['minutes'] = <number>i.agendatimes;
-    //   this.new_dictionaryAgendaItem['message'] = i.agendaitems;
-    //   this.new_dictionaryAgendatolist.append(this.new_dictionaryAgendaItem);
-
-    //   // Start End date and time
-    //   result.start.replace('T', ' ').replace('.000Z', '');
-    //   result.end.replace('T', ' ').replace('.000Z', '');
 
 
 
-    //   });
+
 
     console.log('GOOD', result);
 
@@ -170,23 +133,6 @@ export class InviteformpageComponent implements OnInit {
  }
  
 
-  // result.map((i) =>{
-  //   this.inviteearray = result.split(',');
-  //   (this.inviteeDicttoList).map(element => {
-  //     if((this.inviteearray.indexOf(element.email)) > -1 ){
-  //       this.new_dictionary = {};
-  //       this.new_dictionary['name'] = element['name'];
-  //       this.new_dictionary['email'] = element['email'];
-  //       this.new_dictionary['coHost'] = false;
-  //       this.new_dictionarytolist.append(this.new_dictionary);
-  //     },
-  //     (err: any) => {
-  //       console.log('errors', err);
-  //     }
-  //   );
-  //   console.log('new_dictionarytolist', this.new_dictionarytolist);
-  //   }
-  // }
 
   getInviteesRec(){
     
@@ -208,10 +154,5 @@ export class InviteformpageComponent implements OnInit {
     console.log('inviteeDict', this.inviteeDicttoList);
   }
   
-
-
-  hi(){
-    alert('HI');
-  }
 
 }
