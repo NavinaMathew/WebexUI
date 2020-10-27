@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToolbarService, LinkService, ImageService, HtmlEditorService, TableService, keyDown} from '@syncfusion/ej2-angular-richtexteditor';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { CalendarComponent, FocusEventArgs } from '@syncfusion/ej2-angular-calendars';
-import {MeetingForm} from './MeetingForm';
+import {meetingForm} from './MeetingForm';
 import {SharedService} from 'src/app/services/services';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { ValueTransformer } from '@angular/compiler/src/util';
@@ -22,12 +22,13 @@ export class InviteformpageComponent implements OnInit {
   public submit: boolean = false;
 
   // value: Date;
-  MeetingModel = new MeetingForm('title','password', 'start date and time', 'end date and time', [], 'agenditems', 10,false,false);
+  MeetingModel = new meetingForm('title','password', 'start date and time', 'end date and time', 'navmathe@cisco.com', 'agenditems', '10',false,false);
 
   constructor(
     private _sharedservice: SharedService  ) {
       // this.value = new Date("1/1/2019 1:30 PM");
   }
+  invitee_list: any=[];
   inviteeList: any=[];
   inviteeDict: any={};
   inviteeDicttoList: any=[];
@@ -35,6 +36,19 @@ export class InviteformpageComponent implements OnInit {
   new_dictionarytolist: any=[];
   new_dictionaryAgendaItem: any=[];
   new_dictionaryAgendatolist: any=[];
+
+    title: string;
+    password: string;
+    start: string;
+    start_new: string;
+    end: string;
+    end_new: string;
+    invitees:string;
+    agendaitems: string;
+    agendatimes: string;
+    enabledAutoRecordMeeting: boolean = false;
+    allowAnyUserToBeCoHost: boolean = false;  
+  
   
     ngOnInit() {
 
@@ -49,12 +63,9 @@ export class InviteformpageComponent implements OnInit {
  add() {
   this.containers.push(this.containers.length);
 }
- addMeeting(value : any){
-  value.invitees.map((i) =>{
-    console.log('i am in add meeting function');
-
+ addMeeting(){
     //INVITEES
-    this.inviteearray = value.invitees.split(',');
+    this.inviteearray = this.invitees.split(',');
     console.log('this.inviteearray',this.inviteearray);
     
     (this.inviteeDicttoList).map(element => {
@@ -63,45 +74,57 @@ export class InviteformpageComponent implements OnInit {
         this.new_dictionary['name'] = element['name'];
         this.new_dictionary['email'] = element['email'];
         this.new_dictionary['coHost'] = false;
-        this.new_dictionarytolist.append(this.new_dictionary);
+        this.new_dictionarytolist.push(this.new_dictionary);
       }
 
     });
-    value.invitees = this.new_dictionarytolist;
-    console.log('meetinginfo.invitees',value.invitees);
+    this.invitee_list = this.new_dictionarytolist;
+    console.log('meetinginfo.invitees',this.invitees);
 
 
     // AGENDA
       this.new_dictionaryAgendaItem = {};
-      this.new_dictionaryAgendaItem['minutes'] = <number>i.agendatimes;
-      this.new_dictionaryAgendaItem['message'] = i.agendaitems;
-      this.new_dictionaryAgendatolist.append(this.new_dictionaryAgendaItem);
+      this.new_dictionaryAgendaItem['minutes'] = parseInt(this.agendatimes);
+      this.new_dictionaryAgendaItem['message'] = this.agendaitems;
+      this.new_dictionaryAgendatolist.push(this.new_dictionaryAgendaItem);
 
-      value.agenda = this.new_dictionaryAgendatolist;
-      console.log('meetinginfo.agenda',value.agenda);
 
 
       // Start End date and time
-      value.start.replace('T', ' ').replace('.000Z', '');
-      console.log('meetinginfo.start',value.start);
+      console.log(JSON.stringify(this.start));
+      this.start_new= JSON.stringify(this.start).replace('T', ' ').replace('.000Z', '').replace(/\"/g, "");
 
-      value.end.replace('T', ' ').replace('.000Z', '');
-      console.log('meetinginfo.end',value.end);
-
-      console.log('MEETINGINFO', value);
-
-
+      this.end_new = JSON.stringify(this.end).replace('T', ' ').replace('.000Z', '').replace(/\"/g, "");
   let params = new HttpParams()
-  .set('title', value.title)
-  .set('password', value.password)
-  .set('start', value.start)
-  .set('end', value.end)
-  .set('invitees', value.invitees)
-  .set('meetingAgenda', value.agenda)
-  .set('enabledAutoRecordMeeting', value.enabledAutoRecordMeeting)
-  .set('allowAnyUserToBeCoHost', value.allowAnyUserToBeCoHost);
+
+  var addmeetingDict = {
+    "title": this.title,
+    "password": this.password,
+    "start": this.start_new,
+    "end": this.end_new,
+    "invitees": this.invitee_list,
+    "meetingAgenda": this.new_dictionaryAgendatolist,
+    "enabledAutoRecordMeeting": <boolean>this.enabledAutoRecordMeeting,
+    "allowAnyUserToBeCoHost": <boolean>this.allowAnyUserToBeCoHost
+    
+  };
+
+  console.log('addmeetingDict', addmeetingDict);
+  // .set('title', this.title)
+  // .set('password', this.password)
+  // .set('start', this.start_new)
+  // .set('end', this.end_new)
+  // .set('invitees', this.invitee_list)
+  // .set('meetingAgenda', this.new_dictionaryAgendatolist)
+  // .set('enabledAutoRecordMeeting', JSON.stringify(this.enabledAutoRecordMeeting))
+  // .set('allowAnyUserToBeCoHost', JSON.stringify(this.allowAnyUserToBeCoHost));
   var url = "http://127.0.0.1:5000/addmeeting";
-  this._sharedservice.addMeetingPostService(url, params).subscribe(result =>{
+
+  this._sharedservice.addMeetingPostService(url, JSON.stringify(addmeetingDict)).subscribe(result =>{
+
+  // console.log('params', JSON.stringify(params));
+  var url = "http://127.0.0.1:5000/addmeeting";
+  // this._sharedservice.addMeetingPostService(url, params).subscribe(result =>{
 
     // INVITEES
     // result.map((i) =>{
@@ -143,9 +166,7 @@ export class InviteformpageComponent implements OnInit {
   }
 
   );
-  console.log('params passed in "meetinginfo"', value);
 
-});
  }
  
 

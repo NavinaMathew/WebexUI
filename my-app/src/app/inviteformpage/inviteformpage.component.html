@@ -24,31 +24,31 @@
  -->
 
 <!-- </form> -->
-<div class="MeetingForm" >
-<form (ngSubmit) ="addMeeting(MeetingForm.value)" name="MeetingForm" #MeetingForm="ngForm">
+<div class="meetingForm" >
+<form (ngSubmit) ="addMeeting()" name="meetingForm" #meetingForm="ngForm">
   <div>
     <ejs-textbox class="title" id="title" name="title" placeholder="Meeting title" [(ngModel)]="title" required maxlength="128" width="400px"></ejs-textbox>
 </div>
 <div>
-  <ejs-textbox class="password" id="password" name="password" placeholder="Password" [(ngModel)]="password" width="400px"></ejs-textbox>
+  <ejs-textbox class="password" id="password" name="password" placeholder="Password" [(ngModel)]="password" required width="400px"></ejs-textbox>
 </div>
   <div>
-    <ejs-datetimepicker placeholder='Start date and time' [min]='minDate' id="start" name="start" #ejDateTimePicker [(ngModel)]="start" width="400px"></ejs-datetimepicker>
+    <ejs-datetimepicker placeholder='Start date and time' [min]='minDate' id="start" name="start" #ejDateTimePicker [(ngModel)]="start"  required width="400px"></ejs-datetimepicker>
   </div>
   <div>
-    <ejs-datetimepicker placeholder='End date and time' [min]='minDate' id="end" name ="end" #ejDateTimePickers [(ngModel)]="end" width="400px"></ejs-datetimepicker>
+    <ejs-datetimepicker placeholder='End date and time' [min]='minDate' id="end" name ="end" #ejDateTimePickers [(ngModel)]="end" required width="400px"></ejs-datetimepicker>
   </div>
     <div>
-      <ejs-textbox [multiline]='true' class="invitees" id="invitees" name="invitees" placeholder="Invitees Email example navmathe@cisco.com, aaydixit@cisco.com" [(ngModel)]="invitees" width="400px"></ejs-textbox>
+      <ejs-textbox [multiline]='true' class="invitees" id="invitees" name="invitees" placeholder="Invitees Email example navmathe@cisco.com, aaydixit@cisco.com" [(ngModel)]="invitees" required width="400px"></ejs-textbox>
   </div> 
   <div>
   <!-- <div id="content"> -->
     <!-- <div id="contentInside" *ngFor="let container of containers"> -->
     <span>
-    <ejs-textbox class="agendaitems" id="agendaitems" name="agendaitems" placeholder="Agenda Items" [(ngModel)]="agendaitems" width="200px"></ejs-textbox>
+    <ejs-textbox class="agendaitems" id="agendaitems" name="agendaitems" placeholder="Agenda Items" [(ngModel)]="agendaitems" required width="200px"></ejs-textbox>
     </span>
     <span style="margin-left: 15px">
-    <ejs-textbox class="agendatimes" id="agendatimes" name="agendatimes" placeholder="time" [(ngModel)]="agendatimes" width="50px"></ejs-textbox>
+    <ejs-textbox class="agendatimes" id="agendatimes" name="agendatimes" placeholder="time" [(ngModel)]="agendatimes" required width="50px"></ejs-textbox>
     </span>
   </div>
   <!-- <button (click)="add()">Add Agenda Item </button>
@@ -57,16 +57,16 @@
     <ejs-textbox [multiline]='true' class="agenda" id="agenda" name="agenda" placeholder="Agenda" [(ngModel)]="agenda" width="400px"></ejs-textbox>
 </div>  -->
   <div> Auto record meeting
-    <ejs-switch id="enabledAutoRecordMeeting" name="enabledAutoRecordMeeting" [(ngModel)]="enabledAutoRecordMeeting"></ejs-switch>
+    <ejs-switch id="enabledAutoRecordMeeting" name="enabledAutoRecordMeeting" [(ngModel)]="enabledAutoRecordMeeting" required></ejs-switch>
   </div>
   <div> Allow any user to be cohost
-    <ejs-switch id="allowAnyUserToBeCoHost" name="allowAnyUserToBeCoHost" [(ngModel)]="allowAnyUserToBeCoHost"></ejs-switch>
+    <ejs-switch id="allowAnyUserToBeCoHost" name="allowAnyUserToBeCoHost" [(ngModel)]="allowAnyUserToBeCoHost" required></ejs-switch>
   </div>
-  <button type="submit">Submit</button>
+  <button type="submit" [disabled]="!meetingForm.form.valid">Submit</button>
 </form>
 </div>
 
-<p> {{MeetingForm.value | json}}</p>
+<p> {{meetingForm.value | json}}</p>
 <div *ngFor="let rec of inviteeList">
   <div>{{rec?.email}}</div>
   <div>{{rec?.name}}</div>
