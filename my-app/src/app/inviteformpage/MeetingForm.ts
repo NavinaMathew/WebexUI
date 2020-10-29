@@ -5,8 +5,7 @@ export class meetingForm{
         public start: string,
         public end: string,
         public invitees: string,
-        public agendaitems: string,
-        public agendatimes: string,
+        public agendaitems: any[]=[{agendaitem: '',agendatime: ''}],
         public enabledAutoRecordMeeting: boolean = false,
         public allowAnyUserToBeCoHost: boolean = false  
   

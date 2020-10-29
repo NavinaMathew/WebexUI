@@ -41,28 +41,38 @@
     <div>
       <ejs-textbox [multiline]='true' class="invitees" id="invitees" name="invitees" placeholder="Invitees Email example navmathe@cisco.com, aaydixit@cisco.com" [(ngModel)]="invitees" required width="400px"></ejs-textbox>
   </div> 
-  <div>
   <!-- <div id="content"> -->
     <!-- <div id="contentInside" *ngFor="let container of containers"> -->
+  <button type="button" (click)="addAgendaItem()">Add Agenda Item</button> 
+    <section *ngFor="let agendaitem of agendaitems; let i = index;">
+      <div>
+        <div>
+            <h4>Agenda Item {{i + 1}}</h4>
+        </div>
+      </div>
     <span>
-    <ejs-textbox class="agendaitems" id="agendaitems" name="agendaitems" placeholder="Agenda Items" [(ngModel)]="agendaitems" required width="200px"></ejs-textbox>
+    <ejs-textbox class="agendaitem" id="agendaitem" name="agendaitem-{{i}}" placeholder="Agenda Item" [(ngModel)]="agendaitem.agendaitem" required width="200px"></ejs-textbox>
     </span>
     <span style="margin-left: 15px">
-    <ejs-textbox class="agendatimes" id="agendatimes" name="agendatimes" placeholder="time" [(ngModel)]="agendatimes" required width="50px"></ejs-textbox>
+    <ejs-textbox class="agendatime" id="agendatime" name="agendatime-{{i}}" placeholder="Agenda Time" [(ngModel)]="agendaitem.agendatime" required width="50px"></ejs-textbox>
     </span>
-  </div>
+    <span style="margin-left: 25px">
+      <button type="button" (click)="deleteAgendaItem(i)">Delete</button>
+    </span>
+  </section>
   <!-- <button (click)="add()">Add Agenda Item </button>
   </div> -->
   <!-- <div>
     <ejs-textbox [multiline]='true' class="agenda" id="agenda" name="agenda" placeholder="Agenda" [(ngModel)]="agenda" width="400px"></ejs-textbox>
 </div>  -->
+
   <div> Auto record meeting
     <ejs-switch id="enabledAutoRecordMeeting" name="enabledAutoRecordMeeting" [(ngModel)]="enabledAutoRecordMeeting" required></ejs-switch>
   </div>
   <div> Allow any user to be cohost
     <ejs-switch id="allowAnyUserToBeCoHost" name="allowAnyUserToBeCoHost" [(ngModel)]="allowAnyUserToBeCoHost" required></ejs-switch>
   </div>
-  <button type="submit" [disabled]="!meetingForm.form.valid">Submit</button>
+  <button type="submit" value="Submit" [disabled]="!meetingForm.form.valid">Submit</button>
 </form>
 </div>
 
