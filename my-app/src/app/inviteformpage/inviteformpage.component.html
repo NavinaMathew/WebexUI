@@ -1,3 +1,6 @@
+<body>
+<div class="Webex" id="wrapper"></div>
+<div class="Title"> Start a meeting</div>
 <div class="meetingForm">
 <form (ngSubmit) ="addMeeting()" name="meetingForm" #meetingForm="ngForm">
   <div>
@@ -15,10 +18,10 @@
     <div>
       <ejs-textbox [multiline]='true' class="invitees" id="invitees" name="invitees" placeholder="Invitees Email example navmathe@cisco.com,aaydixit@cisco.com" [(ngModel)]="invitees" required width="500px"></ejs-textbox>
   </div>
-  <div *ngFor="let rec of inviteeList">
-    <span class="inviteeRecContainer">
-    <div class="inviteeRec">{{rec?.name}}<span><{{rec?.email}}></span></div>
-    </span>
+  <div class="inviteeWrapper" *ngFor="let rec of inviteeList">
+    <div class="inviteeRecContainer">
+    <span class="inviteeRec">{{rec?.name}}<span><{{rec?.email}}></span></span>
+    </div>
   </div> 
   <div class="agendaItemIconContainer">
     <img class="newAgendaItem" src="/assets/NewAgendaItem.svg" (click)="addAgendaItem()"/><span class="AgendaItemIconTitle">Agenda Item</span>
@@ -42,9 +45,7 @@
   </div>
   <button class="submitButton" type="submit" value="Submit" [disabled]="!meetingForm.form.valid">Submit</button>
 </form>
-
-
-<p>Meet, Collaborate, and Communicate. Wherever, Whenever. </p>
-
 </div>
 
+<div class="webexSlogan" id="slogan">Meet, Collaborate, and Communicate. Wherever, Whenever.</div>
+</body>

@@ -12,12 +12,21 @@
     font-family: 'CiscoSans-Regular';
     src: url("../node_modules/cisco-ui/src/fonts/CiscoSans/CiscoSansTTRegular.ttf") ;font-style:normal;
   }
+  @font-face{
+    font-family: 'CiscoSans-Light';
+    src: url('../node_modules/cisco-ui/src/fonts/CiscoSans/CiscoSansTTLight.woff2') ;font-style:normal;
+  }
 
 .meetingForm{
-    margin: auto;
-    width: 30%;
-    padding: 10px;
-    font-family: 'CiscoSans-Regular' !important;
+  border-radius: 20px;
+  border: 2px solid #00BCEB;
+  padding: 50px 90px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'CiscoSans-Light';
+  font-size: 14px;
+
 }
 .submitButton{
   text-align: left;
@@ -30,10 +39,10 @@
   padding: 5px 15px 5px 15px;
   position: relative;
   cursor: pointer;
-  font-family: 'CiscoSans-Regular' !important;
-  font-size: 16px;
+  font-family: 'CiscoSans-Light';
   outline: none;
   margin-top: 20px;
+  font-size: 14px;
   } 
   
 .submitButton:disabled,.submitButton:disabled:hover{
@@ -80,8 +89,9 @@ cursor: pointer;
   border: 2px solid #E6E6E6 ;
   color: #3C3C3C ;
   padding: 2px 12px 2px 12px;
-  font-family: 'CiscoSans-Regular';
+  font-family: 'CiscoSans-Light';
   outline:none;
+  font-size: 14px;
 }
 .btn-bx:disabled,.btn-bx:disabled:hover{
   background-color: #fff !important;
@@ -130,11 +140,15 @@ color:#fff;
   background-size: contain;
   cursor: pointer;
   padding-top: 15px;
+  font-family: 'CiscoSans-Light';
+
 }
 .AgendaItemIconTitle{
   position: relative;
   bottom: 7px;
   margin-left: 10px;
+  font-family: 'CiscoSans-Light';
+
 }
 .agendaItemIconContainer{
   display:inline-block;
@@ -148,6 +162,8 @@ color:#fff;
 
 .agendaitem, .agendatime, .btn-bx {
   display:inline-block;
+  font-family: 'CiscoSans-Light';
+
 }
 
 .delete{
@@ -155,16 +171,78 @@ color:#fff;
 }
 
 .inviteeRecContainer{
-  display:block;
+  border: 1px solid #e6e6e6;
+  background-color: #fff;
+  color: #6c757d;
+  border-radius: 23px;
+  outline:none;
+  position:relative;
+  width:auto;
+  display:inline-block;
+}
+.inviteeRecContainer:hover{
   border: 2px solid #00BCEB;
   color: #1D4572 ;
   background-color: #fff;
-  border-radius: 23px;
-  outline:none;
-  max-width: 100%;
-  min-width: 300px;
 }
 
 .inviteeRec{
-  display:inline-block;
+  min-width:250px;
+  font-family: 'CiscoSans-Light';
+  font-size: 14px;
+  padding: 4px 10px;
+}
+.inviteeWrapper{
+  width: 500px;
+  overflow: auto;
+}
+
+.Webex{
+  background: url(/assets/Cisco_Webex_logo_lockup_cisco_blue-indigo.jpg) no-repeat left;
+  width: 200px;
+  height: 110px;
+  display: inline-block;
+  background-size: contain;
+  margin-left: 40px;
+}
+
+.webexSlogan{
+  display:block;
+  font-family: 'CiscoSans-Light';
+  font-size: 20px;
+  bottom:0px;
+  color: #6c757d;
+
+}
+
+.meetingForm:placeholder-shown, .meetingForm::placeholder{
+  font-family: 'CiscoSans-Light';
+  font-size: 14px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#wrapper {
+  display: flex;
+}
+
+
+#slogan {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.Title{
+  font-family: 'CiscoSans-Light';
+  font-size: 22px;
+  margin-right: 500px;
+  margin-bottom: 20px;
+  text-align: center;
 }
