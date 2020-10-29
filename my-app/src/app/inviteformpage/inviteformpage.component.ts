@@ -64,7 +64,6 @@ export class InviteformpageComponent implements OnInit {
     (this.inviteeDicttoList).map(element => {
       if((this.inviteearray.indexOf(element.email)) > -1 ){
         this.new_dictionary = {};
-        this.new_dictionary['name'] = element['name'];
         this.new_dictionary['email'] = element['email'];
         this.new_dictionary['coHost'] = false;
         this.new_dictionarytolist.push(this.new_dictionary);
