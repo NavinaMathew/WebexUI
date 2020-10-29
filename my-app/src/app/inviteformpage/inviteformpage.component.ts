@@ -60,15 +60,11 @@ export class InviteformpageComponent implements OnInit {
     //INVITEES
     this.inviteearray = this.invitees.split(',');
     console.log('this.inviteearray',this.inviteearray);
-    
-    (this.inviteeDicttoList).map(element => {
-      if((this.inviteearray.indexOf(element.email)) > -1 ){
-        this.new_dictionary = {};
-        this.new_dictionary['email'] = element['email'];
-        this.new_dictionary['coHost'] = false;
-        this.new_dictionarytolist.push(this.new_dictionary);
-      }
-
+    (this.inviteearray).map(element =>{
+      this.new_dictionary = {};
+      this.new_dictionary['email'] = element;
+      this.new_dictionary['coHost'] = false;
+      this.new_dictionarytolist.push(this.new_dictionary);
     });
     this.invitee_list = this.new_dictionarytolist;
     console.log('meetinginfo.invitees',this.invitees);

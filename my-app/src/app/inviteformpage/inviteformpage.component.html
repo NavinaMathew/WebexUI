@@ -1,85 +1,50 @@
-<!-- <form (ngSubmit) ="UpdateAnnouncement()" name="adminForm"  #adminForm="ngForm">
-                            
-  <div class="enddate bodytext" for="edate">End date:</div>
-  <input class = "enddatebox bodytext" type="date" id="edate" name="enddate" style= "border: 2px solid #E6E6E6; border-radius: 10px; width: 56%;" placeholder="00/00/00" [(ngModel)]="enddate" required>
-
-  <textarea class ="header bodytext" id="header" name="header" placeholder="Header goes here" [(ngModel)]="header" required maxlength="59"></textarea>
-
-  <ejs-richtexteditor id='iframeRTE' required name = body [(value)]='body' [(ngModel)]="body" placeholder="Body text here" [toolbarSettings]='tools' style="font: Regular 16px/22px CiscoSansTT; margin-top:9px;" showCharCount="true" maxLength="540" ></ejs-richtexteditor>
-
-<button type="submit" [disabled]="!adminForm.valid " class="btn-bx-active-done" [ngStyle]="{'background-color':adminForm.valid ? '#0B93DB' : '', 'border':adminForm.valid ? '2px solid #0886C9' : '', 'color':adminForm.valid ? '#FFFFFF':''}" (click)= "announceSuccess()">Done</button>
-<button type="button" class="btn-bx-cancel" (click)= "CloseAnnounce()">Cancel</button>
-
-
-</form> -->
-<!-- <form name="adminForm"  #adminForm="ngForm"> -->
-  <!-- <textarea class ="header bodytext" id="header" name="header" placeholder="Header goes here" [(ngModel)]="header" required maxlength="59"></textarea> -->
-
-  <!-- <ejs-datetimepicker id="seconddatetime" #ejDateTimePickers [(ngModel)]='value' width="230px"></ejs-datetimepicker>                       -->
-  
-  <!-- <ejs-richtexteditor id='iframeRTE' required name = body [(value)]='body' [(ngModel)]="body" placeholder="Body text here" [toolbarSettings]='tools' style="font: Regular 16px/22px CiscoSansTT; margin-top:9px;" showCharCount="true" maxLength="540" ></ejs-richtexteditor>
-
-<button type="submit" [disabled]="!adminForm.valid " class="btn-bx-active-done" [ngStyle]="{'background-color':adminForm.valid ? '#0B93DB' : '', 'border':adminForm.valid ? '2px solid #0886C9' : '', 'color':adminForm.valid ? '#FFFFFF':''}" (click)= "announceSuccess()">Done</button>
-<button type="button" class="btn-bx-cancel" (click)= "CloseAnnounce()">Cancel</button>
- -->
-
-<!-- </form> -->
-<div class="meetingForm" >
+<div class="meetingForm">
 <form (ngSubmit) ="addMeeting()" name="meetingForm" #meetingForm="ngForm">
   <div>
-    <ejs-textbox class="title" id="title" name="title" placeholder="Meeting title" [(ngModel)]="title" required maxlength="128" width="400px"></ejs-textbox>
+    <ejs-textbox class="title" id="title" name="title" placeholder="Meeting title" [(ngModel)]="title" required maxlength="128" width="500px"></ejs-textbox>
 </div>
 <div>
-  <ejs-textbox class="password" id="password" name="password" placeholder="Password" [(ngModel)]="password" required width="400px"></ejs-textbox>
+  <ejs-textbox class="password" id="password" name="password" placeholder="Password" [(ngModel)]="password" required width="500px"></ejs-textbox>
 </div>
   <div>
-    <ejs-datetimepicker placeholder='Start date and time' [min]='minDate' id="start" name="start" #ejDateTimePicker [(ngModel)]="start"  required width="400px"></ejs-datetimepicker>
+    <ejs-datetimepicker placeholder='Start date and time' [min]='minDate' id="start" name="start" #ejDateTimePicker [(ngModel)]="start"  required width="500px"></ejs-datetimepicker>
   </div>
   <div>
-    <ejs-datetimepicker placeholder='End date and time' [min]='minDate' id="end" name ="end" #ejDateTimePickers [(ngModel)]="end" required width="400px"></ejs-datetimepicker>
+    <ejs-datetimepicker placeholder='End date and time' [min]='minDate' id="end" name ="end" #ejDateTimePickers [(ngModel)]="end" required width="500px"></ejs-datetimepicker>
   </div>
     <div>
-      <ejs-textbox [multiline]='true' class="invitees" id="invitees" name="invitees" placeholder="Invitees Email example navmathe@cisco.com, aaydixit@cisco.com" [(ngModel)]="invitees" required width="400px"></ejs-textbox>
+      <ejs-textbox [multiline]='true' class="invitees" id="invitees" name="invitees" placeholder="Invitees Email example navmathe@cisco.com,aaydixit@cisco.com" [(ngModel)]="invitees" required width="500px"></ejs-textbox>
+  </div>
+  <div *ngFor="let rec of inviteeList">
+    <span class="inviteeRecContainer">
+    <div class="inviteeRec">{{rec?.name}}<span><{{rec?.email}}></span></div>
+    </span>
   </div> 
-  <!-- <div id="content"> -->
-    <!-- <div id="contentInside" *ngFor="let container of containers"> -->
-  <button type="button" (click)="addAgendaItem()">Add Agenda Item</button> 
-    <section *ngFor="let agendaitem of agendaitems; let i = index;">
-      <div>
-        <div>
-            <h4>Agenda Item {{i + 1}}</h4>
-        </div>
-      </div>
+  <div class="agendaItemIconContainer">
+    <img class="newAgendaItem" src="/assets/NewAgendaItem.svg" (click)="addAgendaItem()"/><span class="AgendaItemIconTitle">Agenda Item</span>
+  </div>
+    <section class="agendaContainer" *ngFor="let agendaitem of agendaitems; let i = index;" width="500px">
     <span>
-    <ejs-textbox class="agendaitem" id="agendaitem" name="agendaitem-{{i}}" placeholder="Agenda Item" [(ngModel)]="agendaitem.agendaitem" required width="200px"></ejs-textbox>
+    <ejs-textbox class="agendaitem" id="agendaitem" name="agendaitem-{{i}}" placeholder="Agenda Item" [(ngModel)]="agendaitem.agendaitem" required width="350px"></ejs-textbox>
     </span>
     <span style="margin-left: 15px">
-    <ejs-textbox class="agendatime" id="agendatime" name="agendatime-{{i}}" placeholder="Agenda Time" [(ngModel)]="agendaitem.agendatime" required width="50px"></ejs-textbox>
+    <ejs-textbox class="agendatime" id="agendatime" name="agendatime-{{i}}" placeholder="Time" [(ngModel)]="agendaitem.agendatime" required width="50px"></ejs-textbox>
     </span>
-    <span style="margin-left: 25px">
-      <button type="button" (click)="deleteAgendaItem(i)">Delete</button>
+    <span>
+      <button class="btn-bx delete" type="button" (click)="deleteAgendaItem(i)">Delete</button>
     </span>
   </section>
-  <!-- <button (click)="add()">Add Agenda Item </button>
-  </div> -->
-  <!-- <div>
-    <ejs-textbox [multiline]='true' class="agenda" id="agenda" name="agenda" placeholder="Agenda" [(ngModel)]="agenda" width="400px"></ejs-textbox>
-</div>  -->
-
   <div> Auto record meeting
     <ejs-switch id="enabledAutoRecordMeeting" name="enabledAutoRecordMeeting" [(ngModel)]="enabledAutoRecordMeeting" required></ejs-switch>
   </div>
   <div> Allow any user to be cohost
     <ejs-switch id="allowAnyUserToBeCoHost" name="allowAnyUserToBeCoHost" [(ngModel)]="allowAnyUserToBeCoHost" required></ejs-switch>
   </div>
-  <button type="submit" value="Submit" [disabled]="!meetingForm.form.valid">Submit</button>
+  <button class="submitButton" type="submit" value="Submit" [disabled]="!meetingForm.form.valid">Submit</button>
 </form>
-</div>
 
-<p> {{meetingForm.value | json}}</p>
-<div *ngFor="let rec of inviteeList">
-  <div>{{rec?.email}}</div>
-  <div>{{rec?.name}}</div>
-</div>
 
 <p>Meet, Collaborate, and Communicate. Wherever, Whenever. </p>
+
+</div>
+
