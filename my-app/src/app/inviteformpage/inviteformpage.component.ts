@@ -51,7 +51,10 @@ export class InviteformpageComponent implements OnInit {
  addMeeting(){
     //INVITEES
     this.inviteearray = this.invitees.split(',');
-    let pop = this.inviteearray.pop();
+    if (this.inviteearray[this.inviteearray.length - 1] == "")
+    {
+      let pop = this.inviteearray.pop();
+    }
     (this.inviteearray).map(element =>{
       this.new_dictionary = {};
       this.new_dictionary['email'] = element;
