@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolbarService, LinkService, ImageService, HtmlEditorService, TableService, keyDown} from '@syncfusion/ej2-angular-richtexteditor';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
-import { CalendarComponent, FocusEventArgs } from '@syncfusion/ej2-angular-calendars';
+import { CalendarComponent} from '@syncfusion/ej2-angular-calendars';
 import {meetingForm} from './MeetingForm';
-import {SharedService} from 'src/app/services/services';
-import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { ValueTransformer } from '@angular/compiler/src/util';
+import {SharedService} from '../services/services';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-inviteformpage',
@@ -21,19 +18,19 @@ export class InviteformpageComponent implements OnInit {
   public inviteearray: any=[];
   public submit: boolean = false;
 
-  // value: Date;
+  //ngModel 
   MeetingModel = new meetingForm('title','password', 'start date and time', 'end date and time', 'navmathe@cisco.com', [{}],false,false);
 
   constructor(
     private _sharedservice: SharedService  ) {}
-  invitee_list: any=[];
-  inviteeList: any=[];
-  inviteeDict: any={};
-  inviteeDicttoList: any=[];
-  new_dictionary: any={};
-  new_dictionarytolist: any=[];
-  new_dictionaryAgendaItem: any=[];
-  new_dictionaryAgendatolist: any=[];
+    invitee_list: any=[];
+    inviteeList: any=[];
+    inviteeDict: any={};
+    inviteeDicttoList: any=[];
+    new_dictionary: any={};
+    new_dictionarytolist: any=[];
+    new_dictionaryAgendaItem: any=[];
+    new_dictionaryAgendatolist: any=[];
 
     public title: string;
     public password: string;
@@ -42,24 +39,19 @@ export class InviteformpageComponent implements OnInit {
     public end: string;
     public end_new: string;
     public agendaitems:any[]=[{agendaitem: '',agendatime: ''}];
-    public invitees:string;
+    public invitees:string = '';
     public enabledAutoRecordMeeting: boolean = false;
-    public allowAnyUserToBeCoHost: boolean = false;  
-  
-  
+    public allowAnyUserToBeCoHost: boolean = false;
+    public successFlag: boolean = false;  
+
     ngOnInit() {
 
       this.getInviteesRec();
-
-  
-  }
- // make true/false sections if null to be "false"
- // invitee and agenda if null to be []
-
+    }
  addMeeting(){
     //INVITEES
     this.inviteearray = this.invitees.split(',');
-    console.log('this.inviteearray',this.inviteearray);
+    let pop = this.inviteearray.pop();
     (this.inviteearray).map(element =>{
       this.new_dictionary = {};
       this.new_dictionary['email'] = element;
@@ -67,8 +59,6 @@ export class InviteformpageComponent implements OnInit {
       this.new_dictionarytolist.push(this.new_dictionary);
     });
     this.invitee_list = this.new_dictionarytolist;
-    console.log('meetinginfo.invitees',this.invitees);
-
 
     // AGENDA
     this.agendaitems.forEach(element => {
@@ -94,25 +84,18 @@ export class InviteformpageComponent implements OnInit {
     "allowAnyUserToBeCoHost": <boolean>this.allowAnyUserToBeCoHost
     
   };
-
-  console.log('addmeetingDict', addmeetingDict);
-
   var url = "http://127.0.0.1:5000/addmeeting";
-
   this._sharedservice.addMeetingPostService(url, JSON.stringify(addmeetingDict)).subscribe(result =>{
-    console.log('GOOD', result);
-
-
+    window.location.reload();
   },
   (err: any) => {
     console.log('errors', err);
   }
   );}
+
   getInviteesRec(){
-    
-      var url = "http://127.0.0.1:5000/namerecommendations";
+    var url = "http://127.0.0.1:5000/namerecommendations";
     this._sharedservice.getInviteesRecGetService(url).subscribe(result => {
-      console.log('get invitee recs', result);
       this.inviteeList = result['list'];
       result.list.map((i) =>{
         this.inviteeDict={},
@@ -122,10 +105,7 @@ export class InviteformpageComponent implements OnInit {
     },
     (err: any) => {
       console.log('errors', err);
-    }
-
-    );
-    console.log('inviteeDict', this.inviteeDicttoList);
+    });
   }
   
   addAgendaItem() {
@@ -137,6 +117,10 @@ export class InviteformpageComponent implements OnInit {
 
   deleteAgendaItem(i: number) {
     this.agendaitems.splice(i, 1);
+  }
+
+  addInvitee(rec){
+    this.invitees = this.invitees.concat(rec + ',');
   }
 
 }

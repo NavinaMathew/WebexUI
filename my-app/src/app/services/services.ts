@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient,HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { timeout, catchError, map, finalize, timeoutWith } from 'rxjs/operators';
-
-import { throwError, TimeoutError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'

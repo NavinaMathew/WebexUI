@@ -19,7 +19,7 @@
       <ejs-textbox [multiline]='true' class="invitees" id="invitees" name="invitees" placeholder="Invitees Email example navmathe@cisco.com,aaydixit@cisco.com" [(ngModel)]="invitees" required width="500px"></ejs-textbox>
   </div>
   <div class="inviteeWrapper" *ngFor="let rec of inviteeList">
-    <div class="inviteeRecContainer">
+    <div class="inviteeRecContainer" (click)="addInvitee(rec?.email)">
     <span class="inviteeRec">{{rec?.name}}<span><{{rec?.email}}></span></span>
     </div>
   </div> 
@@ -49,3 +49,4 @@
 
 <div class="webexSlogan" id="slogan">Meet, Collaborate, and Communicate. Wherever, Whenever.</div>
 </body>
+
