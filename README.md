@@ -18,6 +18,7 @@ Webex Hackathon UI
 
 Once the app is running on http://localhost:4200/, here are a few notes to consider when completing the meeting form.
 
+
 1. Password: must be a decent password that has uppercase, lowercase, numbers, and special characters (at least 6 characters in length)
   - uses standard password requirements from Webex API
 2. Start date and time: Set the the start date as the current date; time should be set to a few minutes ahead of the current time. 
@@ -31,5 +32,9 @@ Once the app is running on http://localhost:4200/, here are a few notes to consi
   agenda item: "discuss challenges" time: = 2 min, this means the a teamspace notification will appear 2 min after the meeting starts and will say "discuss challeneges" in the teamspace 
  5. Auto record meeting --> set to False
  6. Allow any user to be cohost --> set to False
+ 7. Submit button - do not press submit button until invitee recommendations has loaded on the form and all fields are completed. 
+  - After form is submitted by pressing the submit button, wait for the page to reload.
+  - After the page reloads, the form should be blank.
+  - To test the meeting form again, refresh the page and continue. 
   
   
